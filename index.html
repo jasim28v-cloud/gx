@@ -5,6 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>XRAWS | PREMIUM GREEN ARCHIVE</title>
     
+    <meta name="description" content="XRAWS - المنصة الأضخم للمحتوى الخام بتصميم زجاجي نيون">
+    <link rel="canonical" href="https://jasim28v-cloud.github.io/gx/">
+
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://upload-widget.cloudinary.com/global/all.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
@@ -29,13 +32,11 @@
             width: 95%; max-width: 500px; border-radius: 25px; border: 1px solid rgba(0,255,136,0.1);
             background: #050505; overflow: hidden; position: relative;
         }
-        video { width: 100%; display: block; border-bottom: 1px solid #111; }
+        video { width: 100%; display: block; border-bottom: 1px solid #111; min-height: 200px; }
 
         .action-bar { display: flex; justify-content: space-around; padding: 15px; background: rgba(0,0,0,0.5); }
         .action-btn { cursor: pointer; transition: 0.3s; display: flex; flex-direction: column; align-items: center; gap: 5px; }
         .action-btn:hover { color: var(--neon); transform: scale(1.1); }
-        .action-btn i { font-size: 20px; }
-        .action-btn span { font-size: 10px; font-family: 'Orbitron'; }
 
         .footer { background: #020202; border-top: 1px solid #111; padding: 50px 20px; text-align: center; }
         .f-links { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; margin: 30px 0; max-width: 600px; margin-left: auto; margin-right: auto; }
@@ -83,7 +84,10 @@
             ]
         };
 
-        firebase.initializeApp({ databaseURL: CONFIG.firebaseURL });
+        // تهيئة Firebase
+        if (!firebase.apps.length) {
+            firebase.initializeApp({ databaseURL: CONFIG.firebaseURL });
+        }
         const db = firebase.database();
         let currentAdIdx = 0;
 
@@ -92,6 +96,7 @@
             currentAdIdx = (currentAdIdx + 1) % CONFIG.ads.length;
         }
 
+        // إعداد الرفع
         const widget = cloudinary.createUploadWidget({ 
             cloudName: CONFIG.cloudName, 
             uploadPreset: CONFIG.uploadPreset 
@@ -104,43 +109,51 @@
         
         document.getElementById("upload-action").onclick = () => { triggerAd(); widget.open(); };
 
+        // جلب البيانات مع معالجة الأخطاء
         db.ref('xraws_posts').on('value', (snap) => {
             const feed = document.getElementById('main-feed');
             const data = snap.val();
             document.getElementById('loader').style.display = 'none';
+            
+            feed.innerHTML = '';
             if(!data) {
-                feed.innerHTML = '<p class="mt-20 text-gray-600">No Content Found. Be the first!</p>';
+                feed.innerHTML = '<p class="mt-20 text-gray-600 italic">No Content Available</p>';
                 return;
             }
-            feed.innerHTML = '';
+            
             Object.keys(data).reverse().forEach(id => {
                 const item = data[id];
-                feed.innerHTML += `
-                    <div class="v-card">
-                        <video controls playsinline src="${item.url}" onplay="triggerAd()"></video>
-                        <div class="action-bar">
-                            <div class="action-btn" onclick="handleInteraction('${id}')">
-                                <i class="fas fa-heart text-red-500"></i>
-                                <span>${item.likes || 0}</span>
-                            </div>
-                            <div class="action-btn" onclick="triggerAd()">
-                                <i class="fas fa-comment text-green-500"></i>
-                                <span>CHAT</span>
-                            </div>
-                            <div class="action-btn" onclick="triggerAd()">
-                                <i class="fas fa-share text-blue-500"></i>
-                                <span>SHARE</span>
-                            </div>
+                const card = document.createElement('div');
+                card.className = 'v-card';
+                card.innerHTML = `
+                    <video controls playsinline src="${item.url}" onplay="triggerAd()"></video>
+                    <div class="action-bar">
+                        <div class="action-btn" onclick="handleLike('${id}')">
+                            <i class="fas fa-heart text-red-500"></i>
+                            <span class="text-[10px] font-bold">${item.likes || 0}</span>
+                        </div>
+                        <div class="action-btn" onclick="triggerAd()">
+                            <i class="fas fa-comment text-green-500"></i>
+                            <span class="text-[10px] font-bold">CHAT</span>
+                        </div>
+                        <div class="action-btn" onclick="triggerAd()">
+                            <i class="fas fa-share text-blue-500"></i>
+                            <span class="text-[10px] font-bold">SHARE</span>
                         </div>
                     </div>`;
+                feed.appendChild(card);
             });
+        }, (error) => {
+            console.error("Firebase Error:", error);
+            document.getElementById('loader').style.display = 'none';
         });
 
-        function handleInteraction(id) {
+        function handleLike(id) {
             triggerAd();
             db.ref(`xraws_posts/${id}/likes`).transaction(l => (l || 0) + 1);
         }
 
+        // تفعيل الصوت
         document.addEventListener('click', () => { 
             document.querySelectorAll('video').forEach(v => v.muted = false); 
         }, {once: true});
