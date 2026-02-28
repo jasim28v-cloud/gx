@@ -3,9 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    
-    <title>XRAWS | أرشيف الفيديوهات العام</title>
-    <meta name="description" content="منصة XRAWS العامة لمشاهدة ورفع الفيديوهات الخام بدون تسجيل أو اشتراك.">
+    <title>XRAWS | PREMIUM GREEN ARCHIVE</title>
     
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://upload-widget.cloudinary.com/global/all.js"></script>
@@ -14,159 +12,138 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@900&family=Cairo:wght@400;700;900&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@900&family=Cairo:wght@400;700&display=swap');
+        :root { --neon: #00ff88; --glass: rgba(0, 255, 136, 0.05); }
+        body { margin: 0; background: #000; color: #fff; font-family: 'Cairo', sans-serif; overflow-x: hidden; }
         
-        :root {
-            --neon: #00ff88;
-            --glass-border: rgba(0, 255, 136, 0.2);
-        }
-
-        body {
-            margin: 0; background: #000; color: #fff; font-family: 'Cairo', sans-serif;
-            overflow-x: hidden;
-        }
-
-        /* الهيدر الزجاجي */
         header {
-            height: 70px; background: rgba(0, 0, 0, 0.9); backdrop-filter: blur(15px);
-            border-bottom: 1px solid var(--glass-border); display: flex;
+            height: 75px; background: rgba(0,0,0,0.9); backdrop-filter: blur(20px);
+            border-bottom: 2px solid rgba(0,255,136,0.2); display: flex;
             align-items: center; justify-content: space-between; padding: 0 20px;
             position: fixed; top: 0; width: 100%; z-index: 1000;
         }
-        .logo-x { font-family: 'Orbitron'; font-weight: 900; font-size: 26px; color: var(--neon); text-shadow: 0 0 10px var(--neon); }
+        .logo { font-family: 'Orbitron'; font-weight: 900; font-size: 28px; color: var(--neon); text-shadow: 0 0 15px var(--neon); }
 
-        /* منطقة التغذية الحية */
-        .feed { 
-            padding-top: 90px; min-height: 100vh; 
-            background: radial-gradient(circle at top, #001a10 0%, #000 100%);
-            display: flex; flex-direction: column; align-items: center; gap: 25px;
-        }
-
+        .feed { padding-top: 100px; display: flex; flex-direction: column; align-items: center; gap: 30px; padding-bottom: 50px; }
         .v-card {
-            width: 95%; max-width: 500px; border-radius: 20px; border: 1px solid var(--glass-border);
-            background: #050505; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.8);
+            width: 95%; max-width: 500px; border-radius: 25px; border: 1px solid rgba(0,255,136,0.1);
+            background: #050505; overflow: hidden; position: relative;
         }
-        
-        video { width: 100%; display: block; background: #000; }
-        .v-info { padding: 15px; background: rgba(0,0,0,0.5); }
+        video { width: 100%; display: block; border-bottom: 1px solid #111; }
 
-        /* الفوتر الاحترافي (نفس صورتك) */
-        .footer {
-            background: #020202; border-top: 1px solid #111; padding: 40px 20px;
-            text-align: center; font-size: 13px; color: #555;
-        }
-        .f-logo { font-family: 'Orbitron'; color: var(--neon); font-size: 24px; margin-bottom: 10px; display: block; }
-        .f-links { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin: 25px 0; }
-        .f-links a { color: #666; transition: 0.3s; font-size: 12px; }
-        .f-links a:hover { color: var(--neon); }
+        .action-bar { display: flex; justify-content: space-around; padding: 15px; background: rgba(0,0,0,0.5); }
+        .action-btn { cursor: pointer; transition: 0.3s; display: flex; flex-direction: column; align-items: center; gap: 5px; }
+        .action-btn:hover { color: var(--neon); transform: scale(1.1); }
+        .action-btn i { font-size: 20px; }
+        .action-btn span { font-size: 10px; font-family: 'Orbitron'; }
 
-        /* زر الرفع العائم (متاح للجميع) */
+        .footer { background: #020202; border-top: 1px solid #111; padding: 50px 20px; text-align: center; }
+        .f-links { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; margin: 30px 0; max-width: 600px; margin-left: auto; margin-right: auto; }
+        .f-links a { color: #555; font-size: 11px; text-decoration: none; }
+
         .upload-btn {
-            position: fixed; bottom: 25px; right: 25px; width: 60px; height: 60px;
+            position: fixed; bottom: 30px; left: 30px; width: 65px; height: 65px;
             background: var(--neon); color: #000; border-radius: 50%;
             display: flex; align-items: center; justify-content: center;
-            font-size: 24px; cursor: pointer; z-index: 2000; box-shadow: 0 0 20px var(--neon);
+            font-size: 26px; cursor: pointer; z-index: 2000; box-shadow: 0 0 20px var(--neon);
         }
-
         #loader { position: fixed; inset: 0; background: #000; z-index: 9999; display: flex; align-items: center; justify-content: center; }
     </style>
 </head>
 <body>
 
-    <div id="loader"><i class="fas fa-circle-notch fa-spin text-green-500 text-4xl"></i></div>
+    <div id="loader"><i class="fas fa-spinner fa-spin text-green-500 text-4xl"></i></div>
 
     <header>
-        <div class="logo-x italic">XRAWS</div>
-        <div class="flex gap-4 text-gray-500">
-            <i class="fas fa-search" onclick="adClick()"></i>
-            <i class="fas fa-bars" onclick="adClick()"></i>
-        </div>
+        <div class="logo italic">XRAWS</div>
+        <i class="fas fa-search text-gray-500" onclick="triggerAd()"></i>
     </header>
 
-    <main class="feed" id="video-feed"></main>
+    <main class="feed" id="main-feed"></main>
 
     <footer class="footer">
-        <span class="f-logo italic">XRAWS</span>
-        <p>© Xraws.com, 2026</p>
-        <div class="flex justify-center gap-4 my-3">
-            <a href="#" onclick="adClick()">Terms</a>
-            <a href="#" onclick="adClick()">Privacy</a>
-            <a href="#" onclick="adClick()">DMCA</a>
-        </div>
+        <span class="logo italic text-2xl mb-4 block">XRAWS</span>
         <div class="f-links">
-            <a href="#" onclick="adClick()">Porn List</a>
-            <a href="#" onclick="adClick()">Fetish Sites</a>
-            <a href="#" onclick="adClick()">Prime List</a>
-            <a href="#" onclick="adClick()">MrPornGeek</a>
-            <a href="#" onclick="adClick()">Perfect Teens</a>
-            <a href="#" onclick="adClick()">Homemade</a>
-            <a href="#" onclick="adClick()">Anal Porn</a>
-            <a href="#" onclick="adClick()">Eporner</a>
-            <a href="#" onclick="adClick()">Premium</a>
-            <a href="#" onclick="adClick()">eFukt</a>
-            <a href="#" onclick="adClick()">Best Sites</a>
-            <a href="#" onclick="adClick()">Inhumanity</a>
+            <a href="#" onclick="triggerAd()">Terms</a> <a href="#" onclick="triggerAd()">Privacy</a> <a href="#" onclick="triggerAd()">DMCA</a>
+            <a href="#" onclick="triggerAd()">Porn List</a> <a href="#" onclick="triggerAd()">Homemade</a> <a href="#" onclick="triggerAd()">Premium</a>
         </div>
+        <p class="text-gray-700 text-[10px] mt-4">© Xraws.com, 2026</p>
     </footer>
 
-    <div class="upload-btn" id="upload-trigger">
-        <i class="fas fa-plus"></i>
-    </div>
+    <div class="upload-btn" id="upload-action"><i class="fas fa-plus"></i></div>
 
     <script>
-        // --- الربط التقني بمشاريعك ---
-        const fbURL = "https://coco-88863-default-rtdb.firebaseio.com/";
-        const cName = "dfscughol";
-        const cPreset = "titan_goo";
-        
-        // روابط الإعلانات الخاصة بك
-        const adLinks = [
-            "https://www.effectivegatecpm.com/bxwxuk2f39?key=566216691dc8b76a740840e94f68f44c",
-            "https://www.effectivegatecpm.com/k60w64w4gk?key=564f3d8cc4ac85949f218179b742495e"
-        ];
-        let currentAd = 0;
+        const CONFIG = {
+            firebaseURL: "https://coco-88863-default-rtdb.firebaseio.com/",
+            cloudName: "dfscughol",
+            uploadPreset: "titan_goo",
+            ads: [
+                "https://www.effectivegatecpm.com/bxwxuk2f39?key=566216691dc8b76a740840e94f68f44c",
+                "https://www.effectivegatecpm.com/k60w64w4gk?key=564f3d8cc4ac85949f218179b742495e"
+            ]
+        };
 
-        firebase.initializeApp({ databaseURL: fbURL });
+        firebase.initializeApp({ databaseURL: CONFIG.firebaseURL });
         const db = firebase.database();
+        let currentAdIdx = 0;
 
-        function adClick() {
-            window.open(adLinks[currentAd], '_blank');
-            currentAd = (currentAd + 1) % adLinks.length;
+        function triggerAd() {
+            window.open(CONFIG.ads[currentAdIdx], '_blank');
+            currentAdIdx = (currentAdIdx + 1) % CONFIG.ads.length;
         }
 
-        // نظام الرفع السحابي (مفتوح للجميع)
-        const widget = cloudinary.createUploadWidget({ cloudName: cName, uploadPreset: cPreset }, (err, res) => {
+        const widget = cloudinary.createUploadWidget({ 
+            cloudName: CONFIG.cloudName, 
+            uploadPreset: CONFIG.uploadPreset 
+        }, (err, res) => {
             if (res.event === "success") {
-                db.ref('public_posts/').push({ url: res.info.secure_url, time: Date.now() });
-                adClick();
+                db.ref('xraws_posts/').push({ url: res.info.secure_url, likes: 0, time: Date.now() });
+                triggerAd();
             }
         });
         
-        document.getElementById("upload-trigger").onclick = () => { adClick(); widget.open(); };
+        document.getElementById("upload-action").onclick = () => { triggerAd(); widget.open(); };
 
-        // جلب المحتوى وعرضه فوراً
-        db.ref('public_posts').on('value', (snap) => {
-            const feed = document.getElementById('video-feed');
+        db.ref('xraws_posts').on('value', (snap) => {
+            const feed = document.getElementById('main-feed');
             const data = snap.val();
             document.getElementById('loader').style.display = 'none';
-            if(!data) return;
-            
+            if(!data) {
+                feed.innerHTML = '<p class="mt-20 text-gray-600">No Content Found. Be the first!</p>';
+                return;
+            }
             feed.innerHTML = '';
-            Object.values(data).reverse().forEach(v => {
-                const card = document.createElement('div');
-                card.className = 'v-card';
-                card.innerHTML = `
-                    <video controls playsinline src="${v.url}" onplay="adClick()"></video>
-                    <div class="v-info">
-                        <h3 class="text-sm font-bold">Raw Amateur Content</h3>
-                        <p class="text-[10px] text-green-500 mt-1 font-[Orbitron]">STATUS: PUBLIC_ACCESS</p>
+            Object.keys(data).reverse().forEach(id => {
+                const item = data[id];
+                feed.innerHTML += `
+                    <div class="v-card">
+                        <video controls playsinline src="${item.url}" onplay="triggerAd()"></video>
+                        <div class="action-bar">
+                            <div class="action-btn" onclick="handleInteraction('${id}')">
+                                <i class="fas fa-heart text-red-500"></i>
+                                <span>${item.likes || 0}</span>
+                            </div>
+                            <div class="action-btn" onclick="triggerAd()">
+                                <i class="fas fa-comment text-green-500"></i>
+                                <span>CHAT</span>
+                            </div>
+                            <div class="action-btn" onclick="triggerAd()">
+                                <i class="fas fa-share text-blue-500"></i>
+                                <span>SHARE</span>
+                            </div>
+                        </div>
                     </div>`;
-                feed.appendChild(card);
             });
         });
 
-        // تشغيل الصوت عند أول لمسة للشاشة
-        document.addEventListener('click', () => { document.querySelectorAll('video').forEach(v => v.muted = false); }, {once: true});
+        function handleInteraction(id) {
+            triggerAd();
+            db.ref(`xraws_posts/${id}/likes`).transaction(l => (l || 0) + 1);
+        }
+
+        document.addEventListener('click', () => { 
+            document.querySelectorAll('video').forEach(v => v.muted = false); 
+        }, {once: true});
     </script>
 </body>
 </html>
