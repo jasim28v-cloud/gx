@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     
-    <title>XRAWS | المنصة العالمية للمحتوى الخام</title>
-    <meta name="description" content="XRAWS هي المنصة الرائدة لأرشفة المحتوى الحصري بتصميم نيون متطور وسرعة فائقة.">
+    <title>XRAWS | أرشيف المحتوى العالمي 2026</title>
+    <meta name="description" content="منصة XRAWS الرسمية للأرشفة الذكية والمحتوى الخام بتصميم نيون عصري وسرعة فائقة.">
     <link rel="canonical" href="https://jasim28v-cloud.github.io/gx/">
 
     <script src="https://cdn.tailwindcss.com"></script>
@@ -18,155 +18,168 @@
         @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@900&family=Cairo:wght@400;700;900&display=swap');
         
         :root {
-            --neon-green: #00ff88;
-            --bg-dark: #000000;
-            --glass-panel: rgba(0, 255, 136, 0.03);
+            --neon: #00ff88;
+            --deep-black: #000000;
         }
 
         body {
-            margin: 0; background: var(--bg-dark); color: #fff; font-family: 'Cairo', sans-serif;
-            background-image: radial-gradient(circle at top, #001a10 0%, #000 80%);
-            background-attachment: fixed;
+            margin: 0; background: var(--deep-black); color: #fff; font-family: 'Cairo', sans-serif;
+            background: radial-gradient(circle at top, #001a10 0%, #000 80%) fixed;
         }
 
-        /* هيدر زجاجي احترافي */
+        /* هيدر سينمائي */
         header {
-            height: 70px; background: rgba(0,0,0,0.9); backdrop-filter: blur(15px);
-            border-bottom: 2px solid rgba(0, 255, 136, 0.2); display: flex;
-            align-items: center; justify-content: space-between; padding: 0 20px;
+            height: 75px; background: rgba(0,0,0,0.9); backdrop-filter: blur(20px);
+            border-bottom: 2px solid rgba(0, 255, 136, 0.25); display: flex;
+            align-items: center; justify-content: space-between; padding: 0 25px;
             position: fixed; top: 0; width: 100%; z-index: 1000;
         }
-        .logo-text { font-family: 'Orbitron'; font-weight: 900; font-size: 28px; color: var(--neon-green); text-shadow: 0 0 15px var(--neon-green); }
+        .logo-glow { font-family: 'Orbitron'; font-weight: 900; font-size: 30px; color: var(--neon); text-shadow: 0 0 20px var(--neon); }
 
-        /* حاوية الفيديوهات */
-        .video-feed { padding-top: 100px; display: flex; flex-direction: column; align-items: center; gap: 30px; padding-bottom: 60px; }
+        /* حاوية المحتوى */
+        .content-container { padding-top: 100px; display: flex; flex-direction: column; align-items: center; gap: 35px; padding-bottom: 70px; }
         
-        .card {
-            width: 95%; max-width: 500px; border-radius: 25px; border: 1px solid rgba(0, 255, 136, 0.1);
-            background: #050505; overflow: hidden; transition: 0.4s ease;
+        .video-card {
+            width: 95%; max-width: 550px; border-radius: 30px; border: 1px solid rgba(0, 255, 136, 0.15);
+            background: #050505; overflow: hidden; transition: 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 10px 40px rgba(0,0,0,0.8);
         }
-        .card:hover { border-color: var(--neon-green); transform: translateY(-5px); }
+        .video-card:hover { border-color: var(--neon); transform: scale(1.02); }
 
-        video { width: 100%; display: block; border-bottom: 1px solid #111; }
+        video { width: 100%; display: block; background: #000; border-bottom: 1px solid #111; }
 
-        /* زر الرفع "التيتان" المطور ضد الحظر */
-        .btn-upload-master {
-            position: fixed; bottom: 30px; left: 30px; width: 65px; height: 65px;
-            background: var(--neon-green); color: #000; border-radius: 50%;
+        /* زر الرفع الذكي (مضاد للحظر) */
+        .master-upload-btn {
+            position: fixed; bottom: 35px; left: 35px; width: 70px; height: 70px;
+            background: var(--neon); color: #000; border-radius: 50%;
             display: flex; align-items: center; justify-content: center;
-            font-size: 26px; cursor: pointer; z-index: 2000;
-            box-shadow: 0 0 20px var(--neon-green); border: none;
+            font-size: 28px; cursor: pointer; z-index: 2000;
+            box-shadow: 0 0 25px var(--neon); border: none; outline: none;
         }
 
-        /* الفوتر الضخم */
-        footer { background: #020202; border-top: 1px solid #111; padding: 50px 20px; text-align: center; }
-        .f-links { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; max-width: 600px; margin: 30px auto; }
-        .f-links a { color: #555; font-size: 11px; transition: 0.3s; }
-        .f-links a:hover { color: var(--neon-green); }
+        /* فوتر الأرشفة */
+        footer { background: #020202; border-top: 1px solid #111; padding: 60px 20px; text-align: center; }
+        .footer-links { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; max-width: 750px; margin: 35px auto; }
+        .footer-links a { color: #555; font-size: 12px; transition: 0.3s; text-decoration: none; }
+        .footer-links a:hover { color: var(--neon); text-shadow: 0 0 5px var(--neon); }
 
-        #loading-screen { position: fixed; inset: 0; background: #000; z-index: 9999; display: flex; align-items: center; justify-content: center; }
+        #boot-loader { position: fixed; inset: 0; background: #000; z-index: 9999; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+        .boot-text { font-family: 'Orbitron'; font-size: 10px; color: var(--neon); margin-top: 20px; letter-spacing: 5px; }
     </style>
 </head>
 <body>
 
-    <div id="loading-screen"><i class="fas fa-circle-notch fa-spin text-green-500 text-4xl"></i></div>
+    <div id="boot-loader">
+        <div class="logo-glow">XRAWS</div>
+        <div class="boot-text">INITIALIZING SYSTEM...</div>
+    </div>
 
     <header>
-        <div class="logo-text italic">XRAWS</div>
-        <div class="flex gap-4 text-gray-400">
-            <i class="fas fa-search cursor-pointer" onclick="handleAd()"></i>
-            <i class="fas fa-bars cursor-pointer" onclick="handleAd()"></i>
+        <div class="logo-glow italic">XRAWS</div>
+        <div class="flex gap-6 text-gray-400">
+            <i class="fas fa-search cursor-pointer" onclick="openNetworkAd()"></i>
+            <i class="fas fa-bars cursor-pointer" onclick="openNetworkAd()"></i>
         </div>
     </header>
 
-    <main class="video-feed" id="main-content"></main>
+    <main class="content-container" id="video-grid"></main>
 
-    <button class="btn-upload-master" id="trigger-up"><i class="fas fa-plus"></i></button>
+    <button class="master-upload-btn" id="upload-action-trigger"><i class="fas fa-plus"></i></button>
 
     <footer>
-        <span class="logo-text italic text-2xl">XRAWS</span>
-        <div class="f-links">
-            <a href="#" onclick="handleAd()">Terms</a> <a href="#" onclick="handleAd()">Privacy</a> <a href="#" onclick="handleAd()">DMCA</a>
-            <a href="#" onclick="handleAd()">Porn List</a> <a href="#" onclick="handleAd()">Homemade</a> <a href="#" onclick="handleAd()">Premium</a>
-            <a href="#" onclick="handleAd()">MrPornGeek</a> <a href="#" onclick="handleAd()">Anal Porn</a> <a href="#" onclick="handleAd()">Eporner</a>
+        <span class="logo-glow italic text-2xl">XRAWS</span>
+        <div class="footer-links">
+            <a href="#" onclick="openNetworkAd()">Terms</a> <a href="#" onclick="openNetworkAd()">Privacy</a> <a href="#" onclick="openNetworkAd()">DMCA</a>
+            <a href="#" onclick="openNetworkAd()">Porn List</a> <a href="#" onclick="openNetworkAd()">Homemade</a> <a href="#" onclick="openNetworkAd()">Premium</a>
+            <a href="#" onclick="openNetworkAd()">Anal Porn</a> <a href="#" onclick="openNetworkAd()">Eporner</a> <a href="#" onclick="openNetworkAd()">Best Sites</a>
         </div>
-        <p class="text-gray-800 text-[9px] mt-6">© 2026 XRAWS ARCHIVE SYSTEM</p>
+        <p class="text-gray-800 text-[10px] mt-10 uppercase tracking-widest">© 2026 Xraws.com Archive Network</p>
     </footer>
 
     <script>
-        // الإعدادات التقنية الخاصة بك
-        const DATA_CONFIG = {
-            dbURL: "https://coco-88863-default-rtdb.firebaseio.com/",
-            cloudName: "dfscughol",
-            uploadPreset: "titan_goo",
-            adLinks: [
+        // تكوين البيانات الأساسية
+        const SYSTEM_CONFIG = {
+            db: "https://coco-88863-default-rtdb.firebaseio.com/",
+            clName: "dfscughol",
+            clPreset: "titan_goo",
+            ads: [
                 "https://www.effectivegatecpm.com/bxwxuk2f39?key=566216691dc8b76a740840e94f68f44c",
                 "https://www.effectivegatecpm.com/k60w64w4gk?key=564f3d8cc4ac85949f218179b742495e"
             ]
         };
 
-        firebase.initializeApp({ databaseURL: DATA_CONFIG.dbURL });
+        firebase.initializeApp({ databaseURL: SYSTEM_CONFIG.db });
         const database = firebase.database();
-        let currentAd = 0;
+        let adPointer = 0;
 
-        // دالة الإعلانات الذكية
-        function handleAd() {
-            const win = window.open(DATA_CONFIG.adLinks[currentAd], '_blank');
-            if(win) {
-                win.focus();
-                currentAd = (currentAd + 1) % DATA_CONFIG.adLinks.length;
+        // دالة فتح الإعلانات (مُحسنة ضد الحظر)
+        function openNetworkAd() {
+            const adWin = window.open(SYSTEM_CONFIG.ads[adPointer], '_blank');
+            if(adWin) {
+                adWin.focus();
+                adPointer = (adPointer + 1) % SYSTEM_CONFIG.ads.length;
             }
         }
 
         // أداة الرفع السحابي
-        const myWidget = cloudinary.createUploadWidget({
-            cloudName: DATA_CONFIG.cloudName, 
-            uploadPreset: DATA_CONFIG.uploadPreset,
+        const uploader = cloudinary.createUploadWidget({
+            cloudName: SYSTEM_CONFIG.clName, 
+            uploadPreset: SYSTEM_CONFIG.clPreset,
             resourceType: 'video'
-        }, (error, result) => {
-            if (result.event === "success") {
-                database.ref('new_xraws_posts/').push({
-                    url: result.info.secure_url,
-                    timestamp: Date.now()
+        }, (err, res) => {
+            if (res.event === "success") {
+                database.ref('xraws_v4_final/').push({
+                    url: res.info.secure_url,
+                    likes: 0,
+                    created_at: Date.now()
                 });
-                handleAd();
+                openNetworkAd();
             }
         });
 
-        // ربط الرفع بحدث الضغط (لحل مشكلة الحظر)
-        document.getElementById("trigger-up").addEventListener('click', function() {
-            handleAd(); // يفتح الإعلان أولاً كاستجابة للمستخدم
-            myWidget.open(); // يفتح نافذة الرفع
+        // تشغيل الرفع عبر Event Listener (مهم جداً لتجاوز حظر المتصفح)
+        document.getElementById("upload-action-trigger").addEventListener('click', function() {
+            openNetworkAd(); // يفتح الإعلان أولاً كإذن من المستخدم
+            uploader.open(); // ثم يفتح نافذة الرفع
         });
 
-        // جلب المحتوى وعرضه
-        database.ref('new_xraws_posts').on('value', (snapshot) => {
-            const feed = document.getElementById('main-content');
-            const data = snapshot.val();
-            document.getElementById('loading-screen').style.display = 'none';
+        // جلب المحتوى وتحديث الواجهة
+        database.ref('xraws_v4_final').on('value', (snap) => {
+            const grid = document.getElementById('video-grid');
+            const data = snap.val();
+            document.getElementById('boot-loader').style.display = 'none';
             
             if(!data) {
-                feed.innerHTML = '<p class="mt-20 text-gray-600 italic">No Content Available Yet</p>';
+                grid.innerHTML = '<p class="mt-20 text-gray-700 italic">No Content Available</p>';
                 return;
             }
 
-            feed.innerHTML = '';
-            Object.values(data).reverse().forEach(post => {
+            grid.innerHTML = '';
+            Object.keys(data).reverse().forEach(key => {
+                const item = data[key];
                 const card = document.createElement('div');
-                card.className = 'card';
+                card.className = 'video-card';
                 card.innerHTML = `
-                    <video controls playsinline preload="metadata" src="${post.url}" onplay="handleAd()"></video>
-                    <div class="p-4 flex justify-between bg-black/40">
-                        <span class="text-[10px] text-green-400 font-bold uppercase tracking-widest">Premium Content</span>
-                        <i class="fas fa-share-alt text-gray-500 cursor-pointer" onclick="handleAd()"></i>
+                    <video controls playsinline preload="metadata" src="${item.url}" onplay="openNetworkAd()"></video>
+                    <div class="p-4 flex justify-between items-center bg-black/60">
+                        <div class="flex items-center gap-2" onclick="handleLike('${key}')">
+                            <i class="fas fa-heart text-red-500 cursor-pointer"></i>
+                            <span class="text-[10px] font-bold text-gray-300">${item.likes || 0}</span>
+                        </div>
+                        <i class="fas fa-paper-plane text-green-500 cursor-pointer" onclick="openNetworkAd()"></i>
                     </div>
                 `;
-                feed.appendChild(card);
+                grid.appendChild(card);
             });
         });
 
-        // تفعيل الصوت عند أول لمسة
-        document.addEventListener('touchstart', () => {
+        function handleLike(key) {
+            openNetworkAd();
+            database.ref(`xraws_v4_final/${key}/likes`).transaction(l => (l || 0) + 1);
+        }
+
+        // تفعيل الصوت عند أول تفاعل
+        document.addEventListener('click', () => {
             document.querySelectorAll('video').forEach(v => v.muted = false);
         }, {once: true});
     </script>
